@@ -1,0 +1,121 @@
+.test{
+    font-family: calibri, Microsoft Yahei;
+  }
+  .test td{
+    width: 44px;
+    height: 44px;
+    border: 3px solid;
+    background-color: rgb(67, 171, 231);
+    border-color: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 20px;
+    color: #fff;
+    position: relative; 
+  }
+  .test  img{
+    width: 44px;
+    height: 44px;
+    border: 3px solid;
+    background-color: rgb(67, 171, 231);
+    border-color: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 20px;
+    color: #fff;
+    position: relative;
+    pointer-events: none;
+  }
+  .test td:hover{  
+    background-color: rgb(93, 185, 238);
+  }
+  .test .blank ,.test .blank:hover {
+    background-color: transparent;
+    cursor: default; 
+
+  }
+  .test .blank img{
+    display: none;
+    
+  }  
+  .test .selected{
+    border-color: rgb(248, 120, 0);
+  }
+ 
+  .test .line:before, .test .line:after{
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: rgb(248, 120, 0);
+    z-index:1;
+  }
+  .test .line.line-l:before, .test .line.line-r:before{
+    width: calc(50% + 4px);
+    height: 4px;
+    top: 50%;
+    right: 50%;
+    margin-top: -2px;
+  }
+  .test .line.line-t:after, .test .line.line-b:after{
+    width: 4px;
+    height: calc(50% + 4px);
+    left: 50%;
+    bottom: 50%;
+    margin-left: -2px;
+  }
+  .test .line.line-r:before{
+    right: -4px;
+  }
+  .test .line.line-l.line-r:before{
+    width: calc(100% + 8px);
+    left: -4px;
+    right: -4px;
+  }
+  .test .line.line-b:after{
+    bottom: -4px;
+  }
+  .test .line.line-t.line-b:after{
+    height: calc(100% + 8px);
+    top: -4px;
+    bottom: -4px;
+  }
+  .test .line.line-start.line-l:before, .test .line.line-start.line-r:before, .test .line.line-end.line-l:before, .test .line.line-end.line-r:before{
+    width: calc(20% + 4px);
+    right: 80%;
+  }
+  .test .line.line-start.line-r:before, .test .line.line-end.line-r:before{
+    left: 80%;
+  }
+  .test .line.line-start.line-l:after, .test .line.line-start.line-r:after, .test .line.line-end.line-l:after, .test .line.line-end.line-r:after{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    right: 80%;
+    top: 50%;
+    margin-top: -5px;
+    margin-right: -5px;
+  }
+  .test .line.line-start.line-r:after, .test .line.line-end.line-r:after{
+    margin-left: -5px;
+    left: 80%;
+  }
+  .test .line.line-start.line-t:after, .test .line.line-start.line-b:after, .test .line.line-end.line-t:after, .test .line.line-end.line-b:after{
+    height: calc(20% + 4px);
+    bottom: 80%;
+  }
+  .test .line.line-start.line-b:after, .test .line.line-end.line-b:after{
+    top: 80%;
+  }
+  .test .line.line-start.line-t:before, .test .line.line-start.line-b:before, .test .line.line-end.line-t:before, .test .line.line-end.line-b:before{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    bottom: 80%;
+    left: 50%;
+    margin-left: -5px;
+    margin-bottom: -5px;
+  }
+  .test .line.line-start.line-b:before, .test .line.line-end.line-b:before{
+    margin-top: -5px;
+    top: 80%;
+  }
