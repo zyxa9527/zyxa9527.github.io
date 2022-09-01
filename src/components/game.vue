@@ -1,7 +1,7 @@
 <template>
   <div :class="board.themes.name">
     <div class="game-config">
-      <button type="button" @click="init">重新開始</button> 
+      <button type="button" @click="init">重新開始1</button> 
     </div> 
     <div class="game-score">
         <p>分數 {{ board.score.score }}</p> 
