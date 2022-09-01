@@ -3,11 +3,12 @@ const Utils = {};
 //生成指定大小且成對的隨機陣列
 Utils.arrayRandom = function (fillCount, group) { 
     let at = [] ;
+    console.log(fillCount, group)
     for(let i=0; i< fillCount/2; i++){ 
         let random = Math.floor( Math.random()* group.length) 
         at[i]=  Object.assign({}, group[random] ).valueOf();
         at[i+fillCount/2]=  Object.assign({}, group[random] ).valueOf();
-    }    
+    }   
     return at.sort(arrayrandomsort)
 }
 
@@ -19,7 +20,7 @@ const arrayrandomsort = function() {
 //外層加上空白方塊
 Utils.arrayAddWhiteBlocks = function ( row , col , arr, cell) {
   let result = [];
-  for(let i =1;i< row-1 ;i++){
+  for(let i =0;i<= row-1 ;i++){
       let ar =  arr.slice( i * col  , (i+1) * col)
       ar.splice(0, 0, Object.assign({}, cell).valueOf())
       ar.splice(ar.length, 0, Object.assign({}, cell).valueOf())

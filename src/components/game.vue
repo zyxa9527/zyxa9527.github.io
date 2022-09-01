@@ -1,12 +1,14 @@
 <template>
   <div :class="board.themes.name">
-    <div class="game-config">
+    <!-- <div class="game-config">
       <button type="button" @click="init">重新開始</button> 
     </div> 
     <div class="game-score">
-        <p>分數 {{ board.score.score }}</p> 
-    </div> 
+        <p class="text-4xl">分數 {{ board.score.score }}</p> 
+    </div>  -->
     <table class="game"  >
+        <!-- <button type="button" @click="init">重新開始</button> 
+        <p >分數 {{ board.score.score }}</p>  -->
       <tr :key="row" v-for="(cols, row) in boardContent" >  
          <td  
             :key="col"  
@@ -45,23 +47,20 @@ export default {
     methods :{
         init(){ 
             this.select1 = null;
-            this.select2 = null;
-
+            this.select2 = null; 
             this.board = new Board();    
-            this.boardContent = this.board.init();
-            
+            this.boardContent = this.board.init();  
         },  
         handleClick(x,y){   
              if (this.selected) {
-                 this.select2 =this.boardContent[x][y];  
+                 this.select2 =this.boardContent[x][y];   
+                if (!this.select2.isBlank) this.select2.isSelected = true;
+                else return;
                  //值是否相同
                 if (this.board.hasSameValue(this.select1, this.select2)) {     
-                    let path = new Path(this.select1, this.select2 ,this.boardContent);
-
-                    // 狀態class要裝進board ?
+                    let path = new Path(this.select1, this.select2 ,this.boardContent);  
                     let boardState = new BoardState();
-                    let result = boardState.pathApplication(path);
-                  
+                    let result = boardState.pathApplication(path);  
                     if(result.length>0){
                         console.log('消除',result)
                         this.board.clearPoint(this.select1);
@@ -72,10 +71,15 @@ export default {
                         console.log('不可連線')
                     } 
                 }
+                this.board.clearboder(this.select1);
+                this.board.clearboder(this.select2);
                 this.selected = false;
              } else {
                  this.select1 = this.boardContent[x][y];  
-                 this.selected = true; 
+                 if (!this.select1.isBlank) {
+                    this.select1.isSelected = true;
+                    this.selected = true; 
+                 }
              }
 
         }, 
@@ -112,7 +116,7 @@ export default {
             })
         },
         img(className){
-            if(!className) return
+            if(!className) return  
             return require('../assets/img/'+ className + '.png')
         }
     },
@@ -139,13 +143,11 @@ export default {
 }
 </script> 
 <style>
-  .game{
-    margin: 0 auto;
+  .game{ 
     border-spacing: 0;
     border-collapse: separate;
     user-select: none;
-    text-align: center;
-    margin-top: 125px;
+    text-align: center; 
     border-spacing: 2px;
   }
   .game-config{

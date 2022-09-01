@@ -105,8 +105,7 @@ class CornerArrPath extends PathCor{
         let prevHzLine = this.geHzVttLine( path.board[path.prev.row] , path.prev.col);  
         let currHzLine = this.geHzVttLine( path.board[path.curr.row] , path.curr.col);  
         let prevVtLine = this.geHzVttLine( path.board.map(e => e[path.prev.col]),path.prev.row);
-        let currVtLine = this.geHzVttLine( path.board.map(e => e[path.curr.col]),path.curr.row);
-        
+        let currVtLine = this.geHzVttLine( path.board.map(e => e[path.curr.col]),path.curr.row); 
         let cornerArrA ;
         let cornerArrB ;
      
@@ -115,7 +114,7 @@ class CornerArrPath extends PathCor{
         for (let prevCell of prevHzLine) {
             if (!prevCell.isBlank) continue
             // target為線上目標的對點
-            let target = currFullLineA[prevCell.col]  
+            let target = currFullLineA[prevCell.col]   
             //判斷是否在目標連接線上
             if (currHzLine.includes(target)) {
                 let index = target.col;
@@ -128,6 +127,7 @@ class CornerArrPath extends PathCor{
                         break
                     }
                 } 
+                break
             }
         }
 
@@ -135,7 +135,7 @@ class CornerArrPath extends PathCor{
         let currFullLineB = path.board.map(e => e[path.curr.col]);
         for (let prevCell of prevVtLine) {
             if (!prevCell.isBlank) continue
-            let target = currFullLineB[prevCell.row] 
+            let target = currFullLineB[prevCell.row]  
             if (currVtLine.includes(target)) {
                 let index = target.row;
                 cornerArrB = [prevFullLineB[index], currFullLineB[index]];
@@ -146,6 +146,7 @@ class CornerArrPath extends PathCor{
                         break;
                     }
                 } 
+                break
             }
         }
 
