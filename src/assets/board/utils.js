@@ -2,8 +2,7 @@ const Utils = {};
 
 //生成指定大小且成對的隨機陣列
 Utils.arrayRandom = function (fillCount, group) { 
-    let at = [] ;
-    console.log(fillCount, group)
+    let at = [] ; 
     for(let i=0; i< fillCount/2; i++){ 
         let random = Math.floor( Math.random()* group.length) 
         at[i]=  Object.assign({}, group[random] ).valueOf();

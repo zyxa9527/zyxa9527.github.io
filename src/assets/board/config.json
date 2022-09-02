@@ -1,7 +1,7 @@
 {
     "defaultTheme": "test", 
-    "col": 10,
-    "row": 8,
+    "col": 12,
+    "row": 10,
     "score":10, 
     "gameTime":120
 }
