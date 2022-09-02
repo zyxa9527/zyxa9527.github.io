@@ -1,5 +1,6 @@
 <template>
   <div :class="board.themes.name">
+    <audio src='../assets/audio/swish1.mp3' style='display:none' id='audio'></audio>
     <!-- <div class="game-config">
       <button type="button" @click="init">重新開始</button> 
     </div> 
@@ -38,26 +39,28 @@ export default {
             select2 : null,
             selected:null,  
             board:null,
-            boardContent:null,   
+            boardContent:null,    
         }
     }, 
     created () { 
-        this.init();
+        this.init(); 
     }, 
     methods :{
         init(){ 
             this.select1 = null;
             this.select2 = null; 
-            this.board = new Board();    
-            this.boardContent = this.board.init();  
+            this.board = new Board();     
+            this.board.init();  
+            this.boardContent = this.board.boardData;  
         },  
         handleClick(x,y){   
+            this.playAudio();
              if (this.selected) {
-                 this.select2 =this.boardContent[x][y];   
+                 this.select2 =this.boardContent[x][y];    
                 if (!this.select2.isBlank) this.select2.isSelected = true;
                 else return;
                  //值是否相同
-                if (this.board.hasSameValue(this.select1, this.select2)) {     
+                if (this.board.hasSameValue(this.select1, this.select2)) {   
                     let path = new Path(this.select1, this.select2 ,this.boardContent);  
                     let boardState = new BoardState();
                     let result = boardState.pathApplication(path);  
@@ -117,23 +120,34 @@ export default {
         },
         img(className){
             if(!className) return  
-            return require('../assets/img/'+ className + '.png')
+            return require('../assets/img/card/'+ className + '.png')
+        },
+        playAudio() {  
+             document.getElementById('audio').play();
         }
     },
     watch: {
         boardContent: {
-            handler(value) {
-                let win = new Array() 
-                value.forEach(cols=>{
-                    cols.forEach(cell=>{
-                        win.push(cell.isBlank)
-                    })
-                })
-                if( win.every(e=>e==true) ){
-                    alert(`win 總分${this.board.score.score}分 !`)
-                }
+            handler() {    
+                this.timer = setTimeout(()=>{
+                    for(let i = 0; i < 5;i++){ 
+                        //判斷還有沒有路走  
+                        if(this.board.gameRoundEnd()){
+                            alert("恭喜完成遊戲!");
+                            this.init();
+                            return;
+                        }else if(this.board.getFirstExistPath() == undefined){ 
+                            alert('無連線')
+                            this.board.rearrangeBoard();//重整盤面    
+                            continue;
+                        }else{
+                            break;
+                        } 
+                    }
+                },50)
+               
             },
-            deep:true
+            deep:true 
         },
          
     },
@@ -189,7 +203,7 @@ export default {
     flex-wrap: wrap;
     font-size: 18px;
   } 
-  /* theme test */
-  @import '../../src/assets/css/test.css';
+  /* theme level1 */
+  @import '../../src/assets/css/level1.css';
   
 </style>

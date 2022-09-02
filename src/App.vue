@@ -22,11 +22,10 @@ export default {
   }, 
   data () {  
       let random = Math.floor(Math.random()*10)+Math.floor(Math.random()*10)+10; //10~28 
-      let randomPhone = Math.floor(Math.random()*10)+ Math.floor(Math.random()*10) +30; //30~48
-      console.log(randomPhone)
+      let randomPhone = Math.floor(Math.random()*10)+ Math.floor(Math.random()*10) +30; //30~48 
       return { 
-        imgSrc:require('./assets/img/'+ random +'.jpg'),//'+ random +'
-        imgSrcPhone:require('./assets/img/'+ randomPhone +'.jpg')
+        imgSrc:require('./assets/img/background/'+ random +'.jpg'),
+        imgSrcPhone:require('./assets/img/backgroundPhone/'+ randomPhone +'.jpg')
       }
   }, 
 }

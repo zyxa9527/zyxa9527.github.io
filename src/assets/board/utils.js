@@ -4,7 +4,7 @@ const Utils = {};
 Utils.arrayRandom = function (fillCount, group) { 
     let at = [] ; 
     for(let i=0; i< fillCount/2; i++){ 
-        let random = Math.floor( Math.random()* group.length) 
+        let random = Math.floor( Math.random()* group.length)  
         at[i]=  Object.assign({}, group[random] ).valueOf();
         at[i+fillCount/2]=  Object.assign({}, group[random] ).valueOf();
     }   
