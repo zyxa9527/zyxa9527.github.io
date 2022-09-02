@@ -11,6 +11,11 @@ class Board {
         this.score = new Score(); 
     }
     init(){
+        this.config = config;
+        if (window.screen.width < 500) {
+            this.config.row += 2;
+            this.config.col -= 2;
+        }
         let cellGroup = this.themes.classNames.map(e => {
             return  new Cell(e,false);
         })  
