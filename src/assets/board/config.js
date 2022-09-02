@@ -7,7 +7,7 @@ export const configL1 = {
 }
 export const configPhoneL1 = {
     "defaultTheme": "level1", 
-    "col": 9,
+    "col": 8,
     "row": 12,
     "score":10, 
     "gameTime":120

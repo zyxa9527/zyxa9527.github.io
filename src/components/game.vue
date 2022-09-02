@@ -1,6 +1,7 @@
 <template>
   <div :class="board.themes.name">
     <audio src='../assets/audio/swish1.mp3' style='display:none' id='audio'></audio>
+    <audio src='../assets/audio/background.mp3' style='display:none' id='audioBackground'></audio>
     <!-- <div class="game-config">
       <button type="button" @click="init">重新開始</button> 
     </div> 
@@ -45,6 +46,9 @@ export default {
     created () { 
         this.init(); 
     }, 
+    mounted(){
+         document.getElementById('audioBackground').play();
+    },
     methods :{
         init(){ 
             this.select1 = null;
