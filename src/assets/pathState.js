@@ -111,8 +111,10 @@ class CornerArrPath extends PathCor{
      
         let prevFullLineA = path.board[path.prev.row] ;
         let currFullLineA = path.board[path.curr.row] ;
+        let arrA = [];
         for (let prevCell of prevHzLine) {
-            if (!prevCell.isBlank) continue
+            if (!prevCell.isBlank) continue;
+           
             // target為線上目標的對點
             let target = currFullLineA[prevCell.col]   
             //判斷是否在目標連接線上
@@ -127,12 +129,15 @@ class CornerArrPath extends PathCor{
                         break
                     }
                 } 
-                break
+                console.log('cornerArrA',cornerArrA,prevFullLineA[index], currFullLineA[index])
+                if(cornerArrA)arrA.push(cornerArrA);
             }
         }
-
+        
+        
         let prevFullLineB = path.board.map(e => e[path.prev.col]);
         let currFullLineB = path.board.map(e => e[path.curr.col]);
+        let arrB = [];
         for (let prevCell of prevVtLine) {
             if (!prevCell.isBlank) continue
             let target = currFullLineB[prevCell.row]  
@@ -146,12 +151,15 @@ class CornerArrPath extends PathCor{
                         break;
                     }
                 } 
-                break
+                console.log('cornerArrB',cornerArrB,prevFullLineB[index], currFullLineB[index])
+                if(cornerArrB)arrB.push(cornerArrB);
             }
-        }
-
-        let cornerArr = cornerArrA || cornerArrB;
-        if(cornerArr){  
+        } 
+        let cornerArr = [];
+        if(arrA.length > 0) cornerArr = arrA[0];
+        else if(arrB.length > 0) cornerArr = arrB[0];
+        console.log(cornerArr)
+        if(cornerArr.length > 0){  
             return   this.getBeeline(path.prev, cornerArr[0] , path.board)
             .concat( this.getBeeline(cornerArr[0], cornerArr[1]  , path.board).slice(1) )
             .concat( this.getBeeline(cornerArr[1], path.curr  , path.board).slice(1) )

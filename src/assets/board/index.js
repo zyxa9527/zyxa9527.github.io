@@ -75,10 +75,13 @@ class Board {
                         if(this.hasSameValue(select1, select2)){ //判斷連線
                             let path = new Path(select1, select2 ,this.boardData);  
                             let boardState = new BoardState();
-                            let result = boardState.pathApplication(path); 
-                            if(result.length > 0){
+                            let result = boardState.pathApplication(path);
+                            console.log(result) 
+                            if(result.length > 0){ 
                                 return result; 
                             }
+                            
+                            
                         }
                     } 
                 }

@@ -1,16 +1,54 @@
 <template>
   <div :class="board.themes.name">
-    <audio src='../assets/audio/swish1.mp3' style='display:none' id='audio'></audio>
-    <audio src='../assets/audio/background.mp3' style='display:none' id='audioBackground'></audio>
-    <!-- <div class="game-config">
-      <button type="button" @click="init">重新開始</button> 
+    <audio muted  src='../assets/audio/swish1.mp3' style='display:none' id='audio'></audio>
+    <audio muted loop src='../assets/audio/background.mp3' style='display:none' id='audioBackground'></audio>
+    
+    <div v-if="notStart" >
+        <div  class="flex justify-center">
+            <button   
+                @click="dialog"
+                data-modal-toggle="defaultModal"
+                class=" transition  w-24 xl:w-48 bg-white text-sm xl:text-xl xl:text-2xl text-blue-500 border-4 xl:border-8 border-blue-500 hover:bg-blue-500 hover:text-white font-bold py-1 xl:py-2 px-4 rounded-full">
+                Play
+            </button>
+        </div>
+        <div  style="width:100%;height:100%;position:absolute;z-index:5"></div>
     </div> 
-    <div class="game-score">
-        <p class="text-4xl">分數 {{ board.score.score }}</p> 
-    </div>  -->
+    <div v-else>  
+        <!--手機-->
+        <div class="xl:hidden"> 
+            <button style="position:fixed;left:0;top:0" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                <span   class="relative px-5 text-xl  py-2.5 transition-all ease-in duration-75 hover:bg-white text-white hover:text-black dark:bg-gray-900 rounded-md  ">
+                    暱稱: {{name}}
+                </span>
+            </button>
+            <button style="position:fixed;right:0;top:0"  class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                <span   class="relative px-5 text-xl  py-2.5 transition-all ease-in duration-75 hover:bg-white text-white hover:text-black dark:bg-gray-900 rounded-md  ">
+                    秒數 {{  endtime }} S
+                </span>
+            </button> 
+        </div>
+        <div class="flex justify-between hidden xl:block" style="padding: 0 50px 0 50px"> 
+            <button  class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-3xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                <span   class="relative px-5 text-2xl  py-2.5 transition-all ease-in duration-75 hover:bg-white text-white hover:text-black dark:bg-gray-900 rounded-md  ">
+                    暱稱: {{name}}
+                </span>
+            </button>
+            <button   class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-3xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                <span   class="relative px-5 text-2xl  py-2.5 transition-all ease-in duration-75 hover:bg-white text-white hover:text-black dark:bg-gray-900 rounded-md  ">
+                    秒數 {{ endtime }} S
+                </span>
+            </button> 
+             <button @click="reset" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-3xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                <span   class="relative px-5 text-2xl  py-2.5 transition-all ease-in duration-75 hover:bg-white text-white hover:text-black dark:bg-gray-900 rounded-md  ">
+                    重新開始
+                </span>
+            </button>
+        </div> 
+    </div>
+    
     <table class="game"  >
-        <!-- <button type="button" @click="init">重新開始</button> 
-        <p >分數 {{ board.score.score }}</p>  -->
+        
       <tr :key="row" v-for="(cols, row) in boardContent" >  
          <td  
             :key="col"  
@@ -20,34 +58,64 @@
         >
             <div v-if="cell.isLine" :class="cell.lineClass"></div> 
              <template v-if="img">
-                 <img :src="img(cell.className)" alt="">
+                <img :src="img(cell.className)"  alt=""> 
             </template>
         </td>
       </tr>
-    </table>
+    </table> 
+    <div id="defaultModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+            <!-- Modal content -->
+            <div class="mt-3 relative bg-white rounded-lg shadow dark:bg-gray-700">
+             
+                <div class="p-6 ">
+                    <div class="mb-2 mt-3">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">暱稱:</label>
+                        <input  v-model="name" type="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="過關時的稱號" >
+                    </div>
+                    <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        這是一款經典怪獸連連看遊戲! <br>
+                        兩個圖案一樣的方塊之間的連線不超過2個拐角即可消除,另外刷新頁面可重新開始 <br><br> 
+                        你能多快完成呢!?
+                    </div>
+                      <div class="flex justify-center  pt-2 space-x-2 rounded-b   border-gray-200 dark:border-gray-600">
+                        <button  data-modal-toggle="defaultModal" @click="gameStart"  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">開始</button> 
+                    </div>  
+                </div> 
+            </div>
+        </div>
+    </div>
   </div>
 </template>
 <script>   
 import Board from '../assets/board/index.js';   
 import BoardState from '../assets/boardState.js'; 
 import Path from '../assets/path.js'; 
+import { db } from  '../database.js';
 
 export default {
     name: 'game', 
     data () { 
         return {
+            name:'',
             select1 : null,
             select2 : null,
             selected:null,  
             board:null,
             boardContent:null,    
+            notStart:true, 
+            endtime:0
         }
     }, 
     created () { 
         this.init(); 
     }, 
-    mounted(){
-         document.getElementById('audioBackground').play();
+    mounted(){ 
+        const msgRef = db.ref("todos");
+        //this.completeGame() 
+        msgRef.on("value", (snapshot) => {
+            console.log(snapshot.val()); // 這個就是我們資料庫中的數據囉
+        }); 
     },
     methods :{
         init(){ 
@@ -56,7 +124,19 @@ export default {
             this.board = new Board();     
             this.board.init();  
             this.boardContent = this.board.boardData;  
+            this.endtime = 0;
         },  
+        gameStart(){
+            this.notStart = false; 
+            if(this.name == '') this.name = '路人';
+            this.endtimer = setInterval(()=>{
+                this.endtime++; 
+            },1000);
+        },
+        dialog(){
+            document.getElementById('audioBackground').currentTime = 0;
+            document.getElementById('audioBackground').play();
+        },
         handleClick(x,y){   
             this.playAudio();
              if (this.selected) {
@@ -67,7 +147,7 @@ export default {
                 if (this.board.hasSameValue(this.select1, this.select2)) {   
                     let path = new Path(this.select1, this.select2 ,this.boardContent);  
                     let boardState = new BoardState();
-                    let result = boardState.pathApplication(path);  
+                    let result = boardState.pathApplication(path);   
                     if(result.length>0){
                         console.log('消除',result)
                         this.board.clearPoint(this.select1);
@@ -126,8 +206,25 @@ export default {
             if(!className) return  
             return require('../assets/img/card/'+ className + '.png')
         },
-        playAudio() {  
-             document.getElementById('audio').play();
+        playAudio() {   
+            document.getElementById('audio').play();
+        },
+        completeGame(){
+            const msgRef = db.ref("ranke"); 
+            const key = msgRef.push().key;
+            // 這邊是把數據推到 realtime 資料庫中的 message 這個資料集合(不確定這詞有沒有用錯)裡面
+            msgRef.child(key).set({
+                name:this.name, 
+                endtime : this.endtime,
+                time: Date.now(), // 這是獲取現在的時間
+                key // 這個等同於 key: key
+            });
+        },
+        reset(){
+            this.init();
+            this.dialog();
+            this.board.score.score = 0;
+            this.endtime = 0;
         }
     },
     watch: {
@@ -157,6 +254,7 @@ export default {
     },
     beforeDestroy() {
       clearInterval(this.timer);
+      clearInterval(this.endtimer);
     }
 }
 </script> 
@@ -167,6 +265,7 @@ export default {
     user-select: none;
     text-align: center; 
     border-spacing: 2px;
+    max-width:1154px;
   }
   .game-config{
     position: fixed;

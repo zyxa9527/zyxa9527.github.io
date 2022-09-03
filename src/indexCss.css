@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Pixelony';
+  src:url('./Cubic_11_1.010_R.ttf') format("truetype")
+}
+ 
+body{
+  margin:0;
+  padding:0; 
+  overflow: hidden; 
+  font-family: 'Pixelony'!important;
+}
+.background {
+    width:100%;
+    height:100%;  /**宽高100%是为了图片铺满屏幕 **/
+    z-index:-1;
+    position: absolute;
+} 
+.background img{
+    width:100%; 
+    margin-top:-83px;
+    position: relative;
+} 
+.backgroundphone {
+    width:100%;
+    height:100%;  /**宽高100%是为了图片铺满屏幕 **/
+    z-index:-1;
+    position: absolute;
+} 
+.backgroundphone img{
+    width:100%;  
+    position: relative;
+} 
+.cell{ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+ 
