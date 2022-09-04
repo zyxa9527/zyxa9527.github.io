@@ -1,14 +1,16 @@
 <template>
+    <!--levell-->
   <div :class="board.themes.name">
+    <!--音效-->
     <audio muted  src='../assets/audio/swish1.mp3' style='display:none' id='audio'></audio>
     <audio muted loop src='../assets/audio/background.mp3' style='display:none' id='audioBackground'></audio>
-    
+    <!--資訊欄-->
     <div v-if="notStart" >
-        <div  class="flex justify-center">
+        <div  class="mt-4 xl:mt-0 flex justify-center">
             <button   
                 @click="dialog"
                 data-modal-toggle="defaultModal"
-                class=" transition  w-24 xl:w-48 bg-white text-sm xl:text-xl xl:text-2xl text-blue-500 border-4 xl:border-8 border-blue-500 hover:bg-blue-500 hover:text-white font-bold py-1 xl:py-2 px-4 rounded-full">
+                class=" transition  w-24 xl:w-48 bg-white text-sm text-2xl text-blue-500 border-4 xl:border-8 border-blue-500 hover:bg-blue-500 hover:text-white font-bold py-1 xl:py-2 px-4 rounded-full">
                 Play
             </button>
         </div>
@@ -18,7 +20,7 @@
         <!--手機-->
         <div class="xl:hidden"> 
             <button style="position:fixed;left:0;top:0" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                <span   class="relative px-5 text-xl  py-2.5 transition-all ease-in duration-75 hover:bg-white text-white hover:text-black dark:bg-gray-900 rounded-md  ">
+                <span  class="relative px-5 text-xl  py-2.5 transition-all ease-in duration-75 hover:bg-white text-white hover:text-black dark:bg-gray-900 rounded-md  ">
                     暱稱: {{name}}
                 </span>
             </button>
@@ -46,9 +48,8 @@
             </button>
         </div> 
     </div>
-    
-    <table class="game"  >
-        
+    <!--遊戲主體-->
+    <table class="game"  > 
       <tr :key="row" v-for="(cols, row) in boardContent" >  
          <td  
             :key="col"  
@@ -63,13 +64,14 @@
         </td>
       </tr>
     </table> 
+    <!--開始前-->
     <div id="defaultModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
         <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
             <!-- Modal content -->
             <div class="mt-3 relative bg-white rounded-lg shadow dark:bg-gray-700">
              
-                <div class="p-6 ">
-                    <div class="mb-2 mt-3">
+                <div class="p-2 xl:p-6 ">
+                    <div class="mb-2 xl:mt-3">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">暱稱:</label>
                         <input  v-model="name" type="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="過關時的稱號" >
                     </div>
@@ -78,10 +80,51 @@
                         兩個圖案一樣的方塊之間的連線不超過2個拐角即可消除,另外刷新頁面可重新開始 <br><br> 
                         你能多快完成呢!?
                     </div>
-                      <div class="flex justify-center  pt-2 space-x-2 rounded-b   border-gray-200 dark:border-gray-600">
-                        <button  data-modal-toggle="defaultModal" @click="gameStart"  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">開始</button> 
+                      <div class="flex justify-center  xl:pt-2 space-x-2 rounded-b   border-gray-200 dark:border-gray-600">
+                        <button  data-modal-toggle="defaultModal" @click="gameStart"  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 xl:py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">開始</button> 
                     </div>  
                 </div> 
+            </div>
+        </div>
+    </div>
+    <!--排行榜-->
+    <div v-if="rankboard" style=";position:absolute;top:10%;left:50%;transform:translate(-50%);overflow:auto;max-height:80vh" id="alert-additional-content-3" class="w-full xl:w-1/4 p-4 mb-4 border border-green-300 rounded-lg bg-green-50 dark:bg-green-200" role="alert">
+        <div class="flex items-center"> 
+            <h3 class="text-xl xl:text-2xl font-medium text-green-700 dark:text-green-800 ">排行榜</h3>
+        </div>
+        <div v-if="rank.length > 1" class="mt-2 mb-4 xl:text-lg text-green-700 dark:text-green-800" >
+            恭喜完成遊戲,花費時間 <span class="text-xl font-bold">{{ rank.find(e=>e.key == this.key).playtime}}</span> 秒, 排名第 <span class="text-xl font-bold">{{rank.findIndex(e=>e.key == key)}}</span>
+        </div>
+        <div class="mt-2 mb-4 text-sm text-green-700 dark:text-green-800" v-for="(item,index) in rank" :key="item.key">
+            <div 
+            v-if="index !==0 && rank.length > 1"
+            :class="{'bg-orange-300':rank.findIndex(e=>e.key == key) == index,'py-1':rank.findIndex(e=>e.key == key) == index}"  
+            class="flex justify-start rounded items-center" >  
+                <div class="w-8" style="position:relative;">
+                    <span    
+                    v-if="index == 1 || index ==2 || index ==3"
+                    :style="{color : index == '1' ? '#F2B233': index == '2' ? '#E9E9E9': '#db6930'}"> 
+                        <i style="font-size:35px"  class="fa-solid fa-crown"></i>
+                    </span> 
+                    <span 
+                        v-if="index == 1 || index ==2 || index ==3"
+                        class="text-xl font-bold"  
+                        style="position:absolute;left:15px;top:12px">
+                        {{index}}
+                    </span>
+                    <span
+                        v-else
+                        class="xl:text-xl ml-4 font-bold">
+                        {{index}}
+                    </span>
+                </div>
+                <div class="w-full flex justify-between items-center">
+                    <div class="flex-1 w-40  text-xs xl:text-base text-center" >{{item.name}}</div> 
+                    <div class="flex justify-between items-center">
+                        <span class="flex-1 text-sm xl:text-base font-bold">{{item.playtime}}秒</span>
+                        <span class="flex-2 text-xs xl:text-base ml-4 mr-2">{{item.datestamp}}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -104,17 +147,44 @@ export default {
             board:null,
             boardContent:null,    
             notStart:true, 
-            endtime:0
+            endtime:0,
+            playtime:0,
+            rankboard:false,
+            rank:[{
+                key:0,
+                playtim:0
+                }],
+            key:''
         }
     }, 
     created () { 
         this.init(); 
+        // this.name = '偉士偉士偉士偉士偉士偉士偉士偉士偉士偉士'
+        // this.endtime = 199;
+        // if(this.name.length > 11) this.name =  this.name.substring(0,11) + '...'; 
+        // this.completeGame()
     }, 
     mounted(){ 
-        const msgRef = db.ref("todos");
-        //this.completeGame() 
-        msgRef.on("value", (snapshot) => {
-            console.log(snapshot.val()); // 這個就是我們資料庫中的數據囉
+        const msgRef = db.ref("ranke");
+        msgRef.orderByChild('playtime').once("value", (snapshot) => { 
+            let vm = this;
+             snapshot.forEach(function (item) {   
+                let {key ,name , playtime ,date} = item.val()
+
+                let dt = new Date(date); 
+                let datestamp = dt.getFullYear()+
+                    "/"+(dt.getMonth()+1)+
+                    "/"+dt.getDate()+
+                    " "+dt.getHours()+
+                    ":"+dt.getMinutes()
+                
+                vm.rank.push({
+                    key ,
+                    name , 
+                    playtime, 
+                    datestamp
+                })
+            }) 
         }); 
     },
     methods :{
@@ -148,8 +218,7 @@ export default {
                     let path = new Path(this.select1, this.select2 ,this.boardContent);  
                     let boardState = new BoardState();
                     let result = boardState.pathApplication(path);   
-                    if(result.length>0){
-                        console.log('消除',result)
+                    if(result.length>0){ 
                         this.board.clearPoint(this.select1);
                         this.board.clearPoint(this.select2);
                         this.board.addScore();
@@ -210,22 +279,26 @@ export default {
             document.getElementById('audio').play();
         },
         completeGame(){
+            this.playtime = this.endtime;
+            if(this.name.length > 11) this.name =  this.name.substring(0,11) + '...'; 
+
             const msgRef = db.ref("ranke"); 
-            const key = msgRef.push().key;
+            this.key = msgRef.push().key;
             // 這邊是把數據推到 realtime 資料庫中的 message 這個資料集合(不確定這詞有沒有用錯)裡面
-            msgRef.child(key).set({
+            msgRef.child(this.key).set({
                 name:this.name, 
-                endtime : this.endtime,
-                time: Date.now(), // 這是獲取現在的時間
-                key // 這個等同於 key: key
+                playtime : this.playtime,
+                date: Date.now(), // 這是獲取現在的時間
+                key:this.key // 這個等同於 key: key
             });
+            this.rankboard = true;
         },
         reset(){
             this.init();
             this.dialog();
             this.board.score.score = 0;
             this.endtime = 0;
-        }
+        },
     },
     watch: {
         boardContent: {
@@ -233,9 +306,8 @@ export default {
                 this.timer = setTimeout(()=>{
                     for(let i = 0; i < 5;i++){ 
                         //判斷還有沒有路走  
-                        if(this.board.gameRoundEnd()){
-                            alert("恭喜完成遊戲!");
-                            this.init();
+                        if(this.board.gameRoundEnd()){ 
+                            this.completeGame() 
                             return;
                         }else if(this.board.getFirstExistPath() == undefined){ 
                             alert('無連線')

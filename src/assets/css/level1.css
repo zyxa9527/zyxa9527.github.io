@@ -2,7 +2,7 @@
   .level1 td{ 
     width: 60px;   
     height:60px; 
-    border: 3px solid;
+    border: 1px solid;
     background-color: rgb(67, 171, 231);
     border-color: transparent;
     cursor: pointer;
@@ -13,8 +13,7 @@
   } 
   .level1  img{ 
     width: 60px;  
-    height:60px; 
-    border: 3px solid; 
+    height:60px;   
     border-color: transparent;
     cursor: pointer;
     border-radius: 4px;

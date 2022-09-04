@@ -128,8 +128,7 @@ class CornerArrPath extends PathCor{
                         cornerArrA = null;
                         break
                     }
-                } 
-                console.log('cornerArrA',cornerArrA,prevFullLineA[index], currFullLineA[index])
+                }  
                 if(cornerArrA)arrA.push(cornerArrA);
             }
         }
@@ -150,15 +149,13 @@ class CornerArrPath extends PathCor{
                         cornerArrB = null;
                         break;
                     }
-                } 
-                console.log('cornerArrB',cornerArrB,prevFullLineB[index], currFullLineB[index])
+                }  
                 if(cornerArrB)arrB.push(cornerArrB);
             }
         } 
         let cornerArr = [];
         if(arrA.length > 0) cornerArr = arrA[0];
-        else if(arrB.length > 0) cornerArr = arrB[0];
-        console.log(cornerArr)
+        else if(arrB.length > 0) cornerArr = arrB[0]; 
         if(cornerArr.length > 0){  
             return   this.getBeeline(path.prev, cornerArr[0] , path.board)
             .concat( this.getBeeline(cornerArr[0], cornerArr[1]  , path.board).slice(1) )
