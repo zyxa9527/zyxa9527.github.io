@@ -94,12 +94,12 @@
             <h3 class="text-xl xl:text-2xl font-medium text-green-700 dark:text-green-800 ">遊戲結束</h3>
         </div>
         <div v-if="rank.length > 1" class="mt-2 mb-4 xl:text-lg text-green-700 dark:text-green-800" >
-            恭喜完成遊戲,花費時間 <span class="text-xl font-bold">{{ rank.find(e=>e.key == this.key).playtime}}</span> 秒, 排名第 <span class="text-xl font-bold">{{rank.findIndex(e=>e.key == key)}}</span>
+            恭喜完成遊戲,花費時間 <span class="text-xl font-bold">{{ ranktime }}</span> 秒, 排名第 <span class="text-xl font-bold">{{rank.findIndex(e=>e.key == key)}}</span>
         </div>
           <div class="mt-8 flex items-center"> 
             <h3 class="text-xl xl:text-2xl font-medium text-green-700 dark:text-green-800 ">排行榜</h3>
         </div>
-        <div style="overflow:auto;max-height:50vh">
+        <div style="overflow:auto;max-height:50vh;width:100%">
             <div class="mt-2 mb-4 text-sm text-green-700 dark:text-green-800" v-for="(item,index) in rank" :key="item.key">
                 <div 
                 v-if="index !==0 && rank.length > 1"
@@ -124,7 +124,7 @@
                         </span>
                     </div>
                     <div class="w-full flex justify-between items-center">
-                        <div class="flex-1 w-40  text-xs xl:text-base text-center" >{{item.name}}</div> 
+                        <div class="flex-1 w-32 xl:w-40  text-xs xl:text-base text-center" >{{item.name}}</div> 
                         <div class="flex justify-between items-center">
                             <span class="flex-1 text-sm xl:text-base font-bold">{{item.playtime}}秒</span>
                             <span class="flex-2 text-xs xl:text-base ml-4 mr-2">{{item.datestamp}}</span>
@@ -163,9 +163,10 @@ export default {
             rankboard:false,
             rank:[{
                 key:0,
-                playtim:0
+                playtime:0
                 }],
-            key:''
+            key:'',
+            ranktime:'',
         }
     }, 
     created () { 
@@ -200,16 +201,28 @@ export default {
                     playtime, 
                     datestamp
                 }) 
+               
                 //過關後呼叫
-                if(vm.playtime) vm.rankboard = true; 
+                if(vm.playtime){
+                    vm.rankboard = true;
+                    let target = vm.rank.find(e=>e.key == vm.key);   
+                    if (target) vm.ranktime = target.playtime; 
+                }
                
             }) 
         }); 
         //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
-        document.getElementById('play').addEventListener('touchstart', function(e) {
+        document.body.addEventListener('touchstart', function(e) {
+               console.log(e);
+                 alert('touchstart')
             document.getElementById('audioBackground').load();
-            document.getElementById('audio').load();
-            console.log(e);
+            document.getElementById('audio').load(); 
+        }, false);
+         document.getElementById('play').addEventListener('touchend', function(e) {
+               console.log(e);
+               alert('touchend')
+            document.getElementById('audioBackground').play();
+            document.getElementById('audio').play(); 
         }, false);
     },
     methods :{
@@ -222,6 +235,7 @@ export default {
             this.endtime = 0; 
             this.playtime = 0;
             this.key = ''; 
+            this.ranktime = '';
         },  
         //遊戲開始
         gameStart(){
@@ -239,12 +253,6 @@ export default {
             //背景音效
             document.getElementById('audioBackground').currentTime = 0;
             document.getElementById('audioBackground').play();
-
-            document.getElementById('play').addEventListener('touchend', function(e) {
-                document.getElementById('audioBackground').play();
-                document.getElementById('audio').play();
-                  console.log(e);
-            }, false);
         },
         handleClick(x,y){   
             //牌音效
@@ -333,7 +341,7 @@ export default {
             let during = parseFloat(((now - this.pretime) / 1000).toFixed(1));  
  
             //name格式
-            if(this.name.length > 27) this.name =  this.name.substring(0,27) + '...'; 
+            if(this.name.length > 25) this.name =  this.name.substring(0,25) + '...'; 
             //add 資料
             const msgRef = db.ref("ranke"); 
             this.key = msgRef.push().key;
@@ -383,6 +391,12 @@ export default {
     beforeDestroy() {
       clearInterval(this.timer);
       clearInterval(this.endtimer);
+    //    document.getElementById('play').removeEventListener('touchstart', function(e) {
+    //         e.preventDefault();
+    //     }, false);
+    //     document.getElementById('play').removeEventListener('touchend', function(e) {
+    //         e.preventDefault();
+    //     }, false);
     }
 }
 </script> 
