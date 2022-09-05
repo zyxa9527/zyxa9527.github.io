@@ -2,7 +2,8 @@
     <!--levell-->
   <div :class="board.themes.name">
     <!--音效-->
-    <audio  src='../assets/audio/swish1.mp3'    id='audio'></audio>
+    <audio  src='../assets/audio/click.mp3'    id='clickAudio'></audio>
+    <audio  src='../assets/audio/wrong.mp3'    id='wrongAudio'></audio>
     <audio  loop preload="auto" src='../assets/audio/background.mp3' id='audioBackground'></audio>
     <!--資訊欄-->
     <div v-if="notStart" >
@@ -95,7 +96,7 @@
         </div>
     </div>
     <!--排行榜-->
-    <div v-if="rankboard" style=";position:absolute;top:10%;left:50%;transform:translate(-50%);max-height:80vh" id="alert-additional-content-3" class="w-full xl:w-2/5 p-4 mb-4 border border-green-300 rounded-lg bg-green-50 dark:bg-green-200" role="alert">
+    <div v-if="rankboard" style=";position:absolute;top:10%;left:50%;transform:translate(-50%);max-height:80vh" id="alert-additional-content-3" class="  mx-1 xl:w-2/5 p-4 mb-4 border border-green-300 rounded-lg bg-green-50 dark:bg-green-200" role="alert">
         <div class="flex items-center"> 
             <h3 class="text-xl xl:text-2xl font-medium text-green-700 dark:text-green-800 ">遊戲結束</h3>
         </div>
@@ -105,7 +106,7 @@
           <div class="mt-8 mb-2 flex items-center"> 
             <h3 class="text-xl xl:text-2xl font-medium text-green-700 dark:text-green-800 ">排行榜</h3>
         </div>
-        <div class="rounded-lg bg-gray-200" style="overflow:auto;max-height:50vh;width:100%">
+        <div class="rounded-lg bg-gray-200 xl:px-3" style="overflow:auto;max-height:50vh;width:100%">
             <div class="mt-2 mb-4 text-sm text-green-700 dark:text-green-800" v-for="(item,index) in rank" :key="item.key">
                 <div 
                 v-if="index !==0 && rank.length > 1"
@@ -133,7 +134,7 @@
                         <div class="flex-1 w-32 xl:w-40  text-xs xl:text-base text-center" >{{item.name}}</div> 
                         <div class="flex w-44 xl:w-56 justify-between items-center">
                             <span class="flex-1 text-sm xl:text-base font-bold">{{item.playtime}}秒</span>
-                            <span class="flex-2 text-xs xl:text-base ml-4 mr-2">{{item.datestamp}}</span>
+                            <span class="flex-2 text-xs xl:text-base  mr-2">{{item.datestamp}}</span>
                         </div>
                     </div>
                 </div>
@@ -219,11 +220,13 @@ export default {
         }); 
         function loadmusic() { 
             document.getElementById('audioBackground').load();
-            document.getElementById('audio').load(); 
+            document.getElementById('clickAudio').load();
+            document.getElementById('wrongAudio').load(); 
         }
         function playmusic() { 
-            document.getElementById('audioBackground').load();
-            document.getElementById('audio').load(); 
+            document.getElementById('audioBackground').play();
+            document.getElementById('clickAudio').play(); 
+            document.getElementById('wrongAudio').play(); 
         }
         //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
         document.body.addEventListener('touchstart',loadmusic , false);
@@ -262,7 +265,7 @@ export default {
         },
         handleClick(x,y){   
             //牌音效
-            this.playAudio();
+           
              if (this.selected) {
                  this.select2 =this.boardContent[x][y];    
                 if (!this.select2.isBlank) this.select2.isSelected = true;
@@ -275,14 +278,17 @@ export default {
                     //尋找可能路徑
                     let result = boardState.pathApplication(path);   
                     if(result.length>0){ 
+                        this.clickAudio();
                         this.board.clearPoint(this.select1);
                         this.board.clearPoint(this.select2);
                         this.board.addScore();
                         this.drawLine(result)
                     }else{
+                        this.wrongAudio();
                         console.log('不可連線')
                     } 
                 }
+                this.wrongAudio();
                 this.board.clearboder(this.select1);
                 this.board.clearboder(this.select2);
                 this.selected = false;
@@ -335,9 +341,13 @@ export default {
             if(!className) return  
             return require('../assets/img/card/'+ className + '.png')
         },
-        //牌音效
-        playAudio() {   
-            document.getElementById('audio').play();
+        //牌點擊音效
+        clickAudio() {   
+            document.getElementById('clickAudio').play();
+        },
+        //牌點錯音效
+        wrongAudio() {     
+            document.getElementById('wrongAudio').play();
         },
         //完成遊戲
         completeGame(){ 
@@ -347,7 +357,7 @@ export default {
             let during = parseFloat(((now - this.pretime) / 1000).toFixed(1));  
  
             //name格式
-            if(this.name.length > 25) this.name =  this.name.substring(0,25) + '...'; 
+            if(this.name.length > 23) this.name =  this.name.substring(0,23) + '...'; 
             //add 資料
             const msgRef = db.ref("ranke"); 
             this.key = msgRef.push().key;
