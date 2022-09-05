@@ -111,6 +111,7 @@ class Board {
                 }
             }
         }   
+        if( this.getFirstExistPath() == undefined)this.rearrangeBoard();
     }
     getAllValueInBoard(){
         let values = [];   

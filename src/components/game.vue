@@ -3,7 +3,7 @@
   <div :class="board.themes.name">
     <!--音效-->
     <audio  src='../assets/audio/swish1.mp3'    id='audio'></audio>
-    <audio  loop controls preload="auto" src='../assets/audio/background.mp3' id='audioBackground'></audio>
+    <audio  loop preload="auto" src='../assets/audio/background.mp3' id='audioBackground'></audio>
     <!--資訊欄-->
     <div v-if="notStart" >
         <div  class="mt-4 xl:mt-0 flex justify-center">
@@ -125,7 +125,7 @@
                     </div>
                     <div class="w-full flex justify-between items-center">
                         <div class="flex-1 w-32 xl:w-40  text-xs xl:text-base text-center" >{{item.name}}</div> 
-                        <div class="flex justify-between items-center">
+                        <div class="flex w-44 xl:w-56 justify-between items-center">
                             <span class="flex-1 text-sm xl:text-base font-bold">{{item.playtime}}秒</span>
                             <span class="flex-2 text-xs xl:text-base ml-4 mr-2">{{item.datestamp}}</span>
                         </div>
@@ -367,21 +367,16 @@ export default {
     watch: {
         boardContent: {
             handler() {    
-                this.timer = setTimeout(()=>{
-                    for(let i = 0; i < 5;i++){ 
-                        //判斷還有沒有路走  
-                        if(this.board.gameRoundEnd()){
-                            if(!this.playtime) this.completeGame();  
-                            return;
-                        }else if(this.board.getFirstExistPath() == undefined){ //可能的路徑
-                            alert('無連線')
-                            this.board.rearrangeBoard();//重整盤面    
-                            continue;
-                        }else{
-                            break;
-                        } 
+                //this.timer = setTimeout(()=>{ 
+                    //判斷還有沒有路走  
+                    if(this.board.gameRoundEnd()){
+                        if(!this.playtime) this.completeGame();  
+                        return;
+                    }else if(this.board.getFirstExistPath() == undefined){ //可能的路徑
+                        alert('無連線')
+                        this.board.rearrangeBoard();//重整盤面    
                     }
-                },50)
+                //},50)
                
             },
             deep:true 
