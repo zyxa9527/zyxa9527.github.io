@@ -61,7 +61,7 @@
         >
             <div v-if="cell.isLine" :class="cell.lineClass"></div> 
              <template v-if="img">
-                <img class="imgclass" :src="img(cell.className)"  alt=""> 
+                <img :src="img(cell.className)"  alt=""> 
             </template>
         </td>
       </tr>
@@ -222,18 +222,14 @@ export default {
             document.getElementById('wrongAudio').load(); 
         }
         function playmusic() { 
-            document.getElementById('audioBackground').play();
-            // document.getElementById('clickAudio').load(); 
-            // document.getElementById('wrongAudio').load(); 
-        }
-        function imgclass(){
+            document.getElementById('audioBackground').load();
             document.getElementById('clickAudio').load(); 
+            document.getElementById('wrongAudio').load(); 
         }
         //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
         document.body.addEventListener('touchstart',loadmusic , false);
         document.body.removeEventListener('touchstart',loadmusic , false); 
         document.getElementById('play').addEventListener('touchend',  playmusic, false);
-        document.getElementsByClassName('imgclass').addEventListener('touchend',  imgclass, false);
         // document.getElementById('play').removeEventListener('touchend',  playmusic, false);
       
     },
