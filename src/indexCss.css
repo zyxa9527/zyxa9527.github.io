@@ -6,11 +6,12 @@
 body{
   margin:0;
   padding:0; 
+  
   overflow: hidden; 
   font-family: 'Pixelony'!important;
 }
 .background {
-    width:100%;
+    width:100;
     height:100%;  /**宽高100%是为了图片铺满屏幕 **/
     z-index:-1;
     position: absolute;

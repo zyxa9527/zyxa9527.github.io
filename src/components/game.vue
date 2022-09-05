@@ -132,7 +132,7 @@
                     </div>
                     <div class="w-full flex justify-between items-center">
                         <div class="flex-1 w-32 xl:w-40  text-xs xl:text-base text-center" >{{item.name}}</div> 
-                        <div class="flex w-44 xl:w-56 justify-between items-center">
+                        <div class="flex w-48 xl:w-56 justify-between items-center">
                             <span class="flex-1 text-sm xl:text-base font-bold">{{item.playtime}}秒</span>
                             <span class="flex-2 text-xs xl:text-base  mr-2">{{item.datestamp}}</span>
                         </div>
@@ -287,8 +287,10 @@ export default {
                         this.wrongAudio();
                         console.log('不可連線')
                     } 
+                }else{
+                    this.wrongAudio();
                 }
-                this.wrongAudio();
+              
                 this.board.clearboder(this.select1);
                 this.board.clearboder(this.select2);
                 this.selected = false;
