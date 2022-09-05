@@ -230,7 +230,7 @@ export default {
         document.body.addEventListener('touchstart',loadmusic , false);
         document.body.removeEventListener('touchstart',loadmusic , false); 
         document.getElementById('play').addEventListener('touchend',  playmusic, false);
-        // document.getElementById('play').removeEventListener('touchend',  playmusic, false);
+        document.getElementById('play').removeEventListener('touchend',  playmusic, false);
       
     },
     methods :{
@@ -404,10 +404,7 @@ export default {
     },
     beforeDestroy() {
       clearInterval(this.timer);
-      clearInterval(this.endtimer); 
-        document.getElementById('play').removeEventListener('touchend', function(e) {
-            e.preventDefault();
-        }, false);
+      clearInterval(this.endtimer);  
     }
 }
 </script> 
