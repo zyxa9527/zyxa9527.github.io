@@ -223,8 +223,8 @@ export default {
         }
         function playmusic() { 
             document.getElementById('audioBackground').load();
-            document.getElementById('clickAudio').load(); 
-            document.getElementById('wrongAudio').load(); 
+            // document.getElementById('clickAudio').load(); 
+            // document.getElementById('wrongAudio').load(); 
         }
         //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
         document.body.addEventListener('touchstart',loadmusic , false);
