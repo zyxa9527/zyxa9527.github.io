@@ -96,7 +96,7 @@
         </div>
     </div>
     <!--排行榜-->
-    <div v-if="rankboard" style=";position:absolute;top:10%;left:50%;transform:translate(-50%);max-height:80vh" id="alert-additional-content-3" class="  mx-1 xl:w-2/5 p-4 mb-4 border border-green-300 rounded-lg bg-green-50 dark:bg-green-200" role="alert">
+    <div v-if="rankboard" style="width:97%;position:absolute;top:10%;left:50%;transform:translate(-50%);max-height:80vh" id="alert-additional-content-3" class="   xl:w-2/5 p-4 mb-4 border border-green-300 rounded-lg bg-green-50 dark:bg-green-200" role="alert">
         <div class="flex items-center"> 
             <h3 class="text-xl xl:text-2xl font-medium text-green-700 dark:text-green-800 ">遊戲結束</h3>
         </div>
@@ -132,8 +132,8 @@
                     </div>
                     <div class="w-full flex justify-between items-center">
                         <div class="flex-1 w-32 xl:w-40  text-xs xl:text-base text-center" >{{item.name}}</div> 
-                        <div class="flex w-48 xl:w-56 justify-between items-center">
-                            <span class="flex-1 text-sm xl:text-base font-bold">{{item.playtime}}秒</span>
+                        <div class="flex w-44 xl:w-56 justify-between items-center">
+                            <span class="flex-1 text-xs xl:text-base font-bold">{{item.playtime}}秒</span>
                             <span class="flex-2 text-xs xl:text-base  mr-2">{{item.datestamp}}</span>
                         </div>
                     </div>
@@ -178,8 +178,6 @@ export default {
     }, 
     created () { 
         this.init(); 
-  
-        //this.completeGame()
     }, 
     mounted(){ 
         //firebase 連結及時資料庫ranke
@@ -233,6 +231,7 @@ export default {
         document.body.removeEventListener('touchstart',loadmusic , false); 
         document.getElementById('play').addEventListener('touchend',  playmusic, false);
         document.getElementById('play').removeEventListener('touchend',  playmusic, false);
+      
     },
     methods :{
         init(){ 
@@ -257,6 +256,8 @@ export default {
             this.endtimer = setInterval(()=>{
                 this.endtime++; 
             },1000);
+            // this.endtime = 100.5; 
+            // this.completeGame()
         },
         dialog(){
             //背景音效
@@ -352,7 +353,7 @@ export default {
             document.getElementById('wrongAudio').play();
         },
         //完成遊戲
-        completeGame(){ 
+        completeGame(){  
             this.playtime = this.endtime;  
             //計算完成秒數
             let now =  new Date().getTime();
