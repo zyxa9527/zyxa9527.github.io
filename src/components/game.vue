@@ -347,12 +347,10 @@ export default {
         //牌點擊音效
         clickAudio() {   
             document.getElementById('clickAudio').play();
-             document.getElementById('clickAudio').load(); 
         },
         //牌點錯音效
         wrongAudio() {     
             document.getElementById('wrongAudio').play();
-              document.getElementById('clickAudio').load(); 
         },
         //完成遊戲
         completeGame(){  
