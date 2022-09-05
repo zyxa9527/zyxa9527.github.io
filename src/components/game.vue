@@ -12,7 +12,7 @@
                 id="play"
                 data-modal-toggle="defaultModal"
                 class=" transition  w-24 xl:w-48 bg-white text-sm text-xl text-blue-500 border-4 xl:border-8 border-blue-500 hover:bg-blue-500 hover:text-white font-bold py-1 xl:py-2 px-4 rounded-full">
-                PLAY2
+                PLAY
             </button>
         </div>
         <div  style="width:100%;height:100%;position:absolute;z-index:5"></div>
@@ -82,7 +82,13 @@
                         你能多快完成呢!?
                     </div>
                       <div class="flex justify-center  xl:pt-2 space-x-2 rounded-b   border-gray-200 dark:border-gray-600">
-                        <button  data-modal-toggle="defaultModal" @click="gameStart"  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 xl:py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">開始</button> 
+                        <button  
+                            data-modal-toggle="defaultModal"
+                            @click="gameStart"  
+                            type="button" 
+                            class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                            開始
+                        </button>  
                     </div>  
                 </div> 
             </div>
@@ -96,19 +102,19 @@
         <div v-if="rank.length > 1" class="mt-2 mb-4 xl:text-lg text-green-700 dark:text-green-800" >
             恭喜完成遊戲,花費時間 <span class="text-xl font-bold">{{ ranktime }}</span> 秒, 排名第 <span class="text-xl font-bold">{{rank.findIndex(e=>e.key == key)}}</span>
         </div>
-          <div class="mt-8 flex items-center"> 
+          <div class="mt-8 mb-2 flex items-center"> 
             <h3 class="text-xl xl:text-2xl font-medium text-green-700 dark:text-green-800 ">排行榜</h3>
         </div>
-        <div style="overflow:auto;max-height:50vh;width:100%">
+        <div class="rounded-lg bg-gray-200" style="overflow:auto;max-height:50vh;width:100%">
             <div class="mt-2 mb-4 text-sm text-green-700 dark:text-green-800" v-for="(item,index) in rank" :key="item.key">
                 <div 
                 v-if="index !==0 && rank.length > 1"
-                :class="{'bg-orange-300':rank.findIndex(e=>e.key == key) == index,'py-1':rank.findIndex(e=>e.key == key) == index}"  
+                :class="{'bg-blue-300':rank.findIndex(e=>e.key == key) == index,'py-1':rank.findIndex(e=>e.key == key) == index}"  
                 class="flex justify-start rounded items-center" >  
                     <div class="w-8" style="position:relative;">
                         <span    
                         v-if="index == 1 || index ==2 || index ==3"
-                        :style="{color : index == '1' ? '#F2B233': index == '2' ? '#E9E9E9': '#db6930'}"> 
+                        :style="{color : index == '1' ? '#F2B233': index == '2' ? 'white': '#db6930'}"> 
                             <i style="font-size:35px"  class="fa-solid fa-crown"></i>
                         </span> 
                         <span 
@@ -133,7 +139,7 @@
                 </div>
             </div>   
         </div>  
-        <div class="flex justify-center">
+        <div class="flex justify-center mt-3">
             <button @click="reset" type="button" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
                 再玩一次
             </button>
