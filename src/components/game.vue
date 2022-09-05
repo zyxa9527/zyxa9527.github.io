@@ -222,9 +222,9 @@ export default {
             document.getElementById('wrongAudio').load(); 
         }
         function playmusic() { 
-            document.getElementById('audioBackground').play();
-            document.getElementById('clickAudio').play(); 
-            document.getElementById('wrongAudio').play(); 
+            document.getElementById('audioBackground').load();
+            document.getElementById('clickAudio').load(); 
+            document.getElementById('wrongAudio').load(); 
         }
         //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
         document.body.addEventListener('touchstart',loadmusic , false);
