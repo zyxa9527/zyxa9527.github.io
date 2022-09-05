@@ -346,10 +346,12 @@ export default {
         },
         //牌點擊音效
         clickAudio() {   
+              document.getElementById('clickAudio').load();
             document.getElementById('clickAudio').play();
         },
         //牌點錯音效
         wrongAudio() {     
+              document.getElementById('wrongAudio').load();
             document.getElementById('wrongAudio').play();
         },
         //完成遊戲
