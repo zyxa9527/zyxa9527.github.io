@@ -3,7 +3,7 @@
   <div :class="board.themes.name">
     <!--音效-->
     <audio muted  src='../assets/audio/swish1.mp3'    id='audio'></audio>
-    <audio muted loop controls   src='../assets/audio/background.mp3' id='audioBackground'></audio>
+    <audio muted loop controls preload="auto" src='../assets/audio/background.mp3' id='audioBackground'></audio>
     <!--資訊欄-->
     <div v-if="notStart" >
         <div  class="mt-4 xl:mt-0 flex justify-center">
@@ -12,7 +12,7 @@
                 id="play"
                 data-modal-toggle="defaultModal"
                 class=" transition  w-24 xl:w-48 bg-white text-sm text-xl text-blue-500 border-4 xl:border-8 border-blue-500 hover:bg-blue-500 hover:text-white font-bold py-1 xl:py-2 px-4 rounded-full">
-                Play1
+                Play
             </button>
         </div>
         <div  style="width:100%;height:100%;position:absolute;z-index:5"></div>
@@ -391,12 +391,12 @@ export default {
     beforeDestroy() {
       clearInterval(this.timer);
       clearInterval(this.endtimer);
-    //    document.getElementById('play').removeEventListener('touchstart', function(e) {
-    //         e.preventDefault();
-    //     }, false);
-    //     document.getElementById('play').removeEventListener('touchend', function(e) {
-    //         e.preventDefault();
-    //     }, false);
+       document.getElementById('play').removeEventListener('touchstart', function(e) {
+            e.preventDefault();
+        }, false);
+        document.getElementById('play').removeEventListener('touchend', function(e) {
+            e.preventDefault();
+        }, false);
     }
 }
 </script> 
