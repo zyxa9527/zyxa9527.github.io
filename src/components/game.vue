@@ -2,8 +2,8 @@
     <!--levell-->
   <div :class="board.themes.name">
     <!--音效-->
-    <audio muted  src='../assets/audio/swish1.mp3' style='display:none' id='audio'></audio>
-    <audio muted loop src='../assets/audio/background.mp3' style='display:none' id='audioBackground'></audio>
+    <audio muted  src='../assets/audio/swish1.mp3'    id='audio'></audio>
+    <audio muted loop controls   src='../assets/audio/background.mp3' id='audioBackground'></audio>
     <!--資訊欄-->
     <div v-if="notStart" >
         <div  class="mt-4 xl:mt-0 flex justify-center">
