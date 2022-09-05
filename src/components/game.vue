@@ -223,8 +223,8 @@ export default {
         }
         function playmusic() { 
             document.getElementById('audioBackground').load();
-            // document.getElementById('clickAudio').load(); 
-            // document.getElementById('wrongAudio').load(); 
+            document.getElementById('clickAudio').load(); 
+            document.getElementById('wrongAudio').load(); 
         }
         //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
         document.body.addEventListener('touchstart',loadmusic , false);
@@ -346,12 +346,10 @@ export default {
         },
         //牌點擊音效
         clickAudio() {   
-              document.getElementById('clickAudio').load();
             document.getElementById('clickAudio').play();
         },
         //牌點錯音效
         wrongAudio() {     
-              document.getElementById('wrongAudio').load();
             document.getElementById('wrongAudio').play();
         },
         //完成遊戲
