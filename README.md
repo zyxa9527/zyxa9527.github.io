@@ -1,4 +1,4 @@
-# connect_the_dots_Game
+# monter_link
 使用職責鍊模式的怪獸連連看小遊戲
 
 兩個圖案一樣的方塊之間的連線不超過2個拐角即可消除。
