@@ -211,12 +211,14 @@ export default {
                
             }) 
         }); 
-        //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
-        document.body.addEventListener('touchstart', function() { 
+        function loadmusic() { 
             document.getElementById('audioBackground').load();
             document.getElementById('audio').load(); 
-        }, false);
-         document.getElementById('play').addEventListener('touchend', function() { 
+        }
+        //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
+        document.body.addEventListener('touchstart',loadmusic , false);
+        document.body.removeEventListener('touchstart',loadmusic , false); 
+        document.getElementById('play').addEventListener('touchend', function() { 
             document.getElementById('audioBackground').play();
             document.getElementById('audio').play(); 
         }, false);
@@ -386,10 +388,7 @@ export default {
     },
     beforeDestroy() {
       clearInterval(this.timer);
-      clearInterval(this.endtimer);
-       document.getElementById('play').removeEventListener('touchstart', function(e) {
-            e.preventDefault();
-        }, false);
+      clearInterval(this.endtimer); 
         document.getElementById('play').removeEventListener('touchend', function(e) {
             e.preventDefault();
         }, false);
