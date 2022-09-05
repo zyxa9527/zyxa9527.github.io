@@ -222,15 +222,15 @@ export default {
             document.getElementById('wrongAudio').load(); 
         }
         function playmusic() { 
-            document.getElementById('audioBackground').load();
-            document.getElementById('clickAudio').load(); 
-            document.getElementById('wrongAudio').load(); 
+            document.getElementById('audioBackground').play();
+            document.getElementById('clickAudio').play(); 
+            document.getElementById('wrongAudio').play(); 
         }
         //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
         document.body.addEventListener('touchstart',loadmusic , false);
         document.body.removeEventListener('touchstart',loadmusic , false); 
         document.getElementById('play').addEventListener('touchend',  playmusic, false);
-        // document.getElementById('play').removeEventListener('touchend',  playmusic, false);
+        document.getElementById('play').removeEventListener('touchend',  playmusic, false);
       
     },
     methods :{
