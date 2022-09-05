@@ -12,7 +12,7 @@
                 @click="dialog"
                 id="play"
                 data-modal-toggle="defaultModal"
-                class=" transition  w-24 xl:w-48 bg-white text-sm text-xl text-blue-500 border-4 xl:border-8 border-blue-500 hover:bg-blue-500 hover:text-white font-bold py-1 xl:py-2 px-4 rounded-full">
+                class=" transition  w-24 xl:w-48 bg-white text-sm text-xl text-blue-500 border-4 xl:border-8 border-blue-500 hover:bg-blue-500 hover:text-white font-bold pt-1 xl:py-2 px-4 rounded-full">
                 PLAY
             </button>
         </div>
