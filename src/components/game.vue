@@ -212,15 +212,11 @@ export default {
             }) 
         }); 
         //ios沒聲音解法 監聽綁定touchstartHandle事件後呼叫
-        document.body.addEventListener('touchstart', function(e) {
-               console.log(e);
-                 alert('touchstart')
+        document.body.addEventListener('touchstart', function() { 
             document.getElementById('audioBackground').load();
             document.getElementById('audio').load(); 
         }, false);
-         document.getElementById('play').addEventListener('touchend', function(e) {
-               console.log(e);
-               alert('touchend')
+         document.getElementById('play').addEventListener('touchend', function() { 
             document.getElementById('audioBackground').play();
             document.getElementById('audio').play(); 
         }, false);
