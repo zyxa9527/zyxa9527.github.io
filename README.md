@@ -10,7 +10,7 @@ https://jhlztf-8080.preview.csb.app/
 
 
 ## 技術
-- 建構環境 vue2 + 職責練模式
+- 建構環境 vue2 + 職責練模式 + tailwindcss
 - 使用firebase即時資料庫紀錄暱稱與所花秒數
 
 
