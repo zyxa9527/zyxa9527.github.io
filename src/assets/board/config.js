@@ -1,6 +1,6 @@
 export const configL1 = {
     "defaultTheme": "level1", 
-    "col": 11,
+    "col": 12,
     "row": 8,
     "score":10, 
     "gameTime":120
